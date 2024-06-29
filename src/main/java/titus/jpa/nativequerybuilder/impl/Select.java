@@ -1,6 +1,5 @@
 package titus.jpa.nativequerybuilder.impl;
 
-import jakarta.persistence.EntityManager;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,7 +8,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import titus.jpa.nativequerybuilder.ISelect;
-import titus.jpa.nativequerybuilder.ISelectQuery;
 
 /**
  * The Class SelectStatement.
@@ -27,11 +25,5 @@ public class Select implements ISelect {
 
 	/** The data query. */
 	private String dataQuery;
-
-	@Override
-	public ISelectQuery build(final EntityManager anEntityManager) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 }

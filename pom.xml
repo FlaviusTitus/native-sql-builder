@@ -4,7 +4,10 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>titus</groupId>
 	<artifactId>jpa-nativesqlbuilder</artifactId>
-	<version>0.0.1</version>
+	<version>0.5.0</version>
+	<name>${project.groupId}:${project.artifactId}</name>
+	<description>A demo for deployment to the Central Repository via OSSRH</description>
+	<url>https://github.com/FlaviusTitus/titus.jpa.nativesqlbuilder</url>
 
 	<properties>
 		<compiler-plugin.version>3.12.1</compiler-plugin.version>
@@ -13,10 +16,35 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<lombok.version>1.18.32</lombok.version>
-		<jakarta.persistence-api.version>3.1.0</jakarta.persistence-api.version>
 		<junit-jupiter.version>5.10.2</junit-jupiter.version>
 		<jacoco-maven-plugin.version>0.8.12</jacoco-maven-plugin.version>
+		<maven-gpg-plugin.version>3.2.4</maven-gpg-plugin.version>
+		<maven-javadoc-plugin.version>3.7.0</maven-javadoc-plugin.version>
+		<maven-source-plugin.version>3.3.1</maven-source-plugin.version>
 	</properties>
+
+	<developers>
+		<developer>
+			<name>Frank Schüler</name>
+		</developer>
+	</developers>
+
+	<scm>
+		<connection>
+			scm:git:git://github.com/FlaviusTitus/titus.jpa.nativesqlbuilder.git</connection>
+		<developerConnection>
+			scm:git:ssh://github.com/FlaviusTitus/titus.jpa.nativesqlbuilder.git</developerConnection>
+		<url>
+			https://github.com/FlaviusTitus/titus.jpa.nativesqlbuilder/tree/master</url>
+	</scm>
+
+	<licenses>
+		<license>
+			<name>MIT License</name>
+			<url>
+				https://github.com/FlaviusTitus/titus.jpa.nativesqlbuilder/blob/main/LICENSE</url>
+		</license>
+	</licenses>
 
 	<dependencyManagement>
 		<dependencies>
@@ -31,12 +59,6 @@
 	</dependencyManagement>
 
 	<dependencies>
-		<dependency>
-			<groupId>jakarta.persistence</groupId>
-			<artifactId>jakarta.persistence-api</artifactId>
-			<version>${jakarta.persistence-api.version}</version>
-			<scope>provided</scope>
-		</dependency>
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
@@ -92,6 +114,46 @@
 			<plugin>
 				<artifactId>maven-surefire-plugin</artifactId>
 				<version>${surefire-plugin.version}</version>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<version>${maven-source-plugin.version}</version>
+				<executions>
+					<execution>
+						<id>attach-sources</id>
+						<goals>
+							<goal>jar-no-fork</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>${maven-javadoc-plugin.version}</version>
+				<executions>
+					<execution>
+						<id>attach-javadocs</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-gpg-plugin</artifactId>
+				<version>${maven-gpg-plugin.version}</version>
+				<executions>
+					<execution>
+						<id>sign-artifacts</id>
+						<phase>verify</phase>
+						<goals>
+							<goal>sign</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>

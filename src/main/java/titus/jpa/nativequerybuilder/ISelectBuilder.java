@@ -15,8 +15,7 @@ public interface ISelectBuilder {
 	/**
 	 * Columns.
 	 *
-	 * @param aColumns
-	 *            the a columns
+	 * @param aColumns the a columns
 	 * @return the i select builder
 	 */
 	ISelectFromBuilder columns(ISelectable... aColumns);
@@ -24,8 +23,7 @@ public interface ISelectBuilder {
 	/**
 	 * Columns.
 	 *
-	 * @param aColumns
-	 *            the a columns
+	 * @param aColumns the a columns
 	 * @return the i select from builder
 	 */
 	ISelectFromBuilder columns(String... aColumns);
@@ -40,8 +38,7 @@ public interface ISelectBuilder {
 	/**
 	 * All columns from table.
 	 *
-	 * @param aTable
-	 *            the a table
+	 * @param aTable the a table
 	 * @return the i select from builder
 	 */
 	ISelectFromBuilder allColumnsFromTable(ITable aTable);
@@ -54,8 +51,7 @@ public interface ISelectBuilder {
 		/**
 		 * Table.
 		 *
-		 * @param aTable
-		 *            the a table
+		 * @param aTable the a table
 		 * @return the i select where builder
 		 */
 		ISelectWhereBuilder from(ISelectFrom aTable);
@@ -63,8 +59,7 @@ public interface ISelectBuilder {
 		/**
 		 * From.
 		 *
-		 * @param aTable
-		 *            the a table
+		 * @param aTable the a table
 		 * @return the i select where builder
 		 */
 		ISelectWhereBuilder from(String aTable);
@@ -75,9 +70,11 @@ public interface ISelectBuilder {
 	 * The Interface ISelectWhereBuilder.
 	 */
 	public static interface ISelectWhereBuilder extends ISelectPageBuilder, ISelectBuilderFinalStage {
+
 		/**
 		 * Where.
 		 *
+		 * @param theCondition the the condition
 		 * @return the i select where builder
 		 */
 		ISelectWhereBuilder where(ICondition theCondition);
@@ -123,7 +120,18 @@ public interface ISelectBuilder {
 
 	}
 
+	/**
+	 * The Interface ISelectPageBuilder.
+	 */
 	public static interface ISelectPageBuilder extends ISelectBuilderFinalStage {
+
+		/**
+		 * Page.
+		 *
+		 * @param aPage the a page
+		 * @param aSize the a size
+		 * @return the i builder
+		 */
 		IBuilder<ISelect> page(int aPage, int aSize);
 	}
 
@@ -132,6 +140,11 @@ public interface ISelectBuilder {
 	 */
 	public static interface ISelectBuilderFinalStage extends IBuilder<ISelect> {
 
+		/**
+		 * Builds the as sub select.
+		 *
+		 * @return the i sub select
+		 */
 		ISubSelect buildAsSubSelect();
 	}
 }
