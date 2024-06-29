@@ -2,8 +2,8 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>titus.jpa.helper</groupId>
-	<artifactId>titus.jpa.nativesqlbuilder</artifactId>
+	<groupId>titus</groupId>
+	<artifactId>jpa-nativesqlbuilder</artifactId>
 	<version>0.0.1</version>
 
 	<properties>
@@ -15,8 +15,9 @@
 		<lombok.version>1.18.32</lombok.version>
 		<jakarta.persistence-api.version>3.1.0</jakarta.persistence-api.version>
 		<junit-jupiter.version>5.10.2</junit-jupiter.version>
+		<jacoco-maven-plugin.version>0.8.12</jacoco-maven-plugin.version>
 	</properties>
-	
+
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
@@ -45,7 +46,7 @@
 
 		<dependency>
 			<groupId>org.junit.jupiter</groupId>
-			<artifactId>junit-jupiter</artifactId>
+			<artifactId>junit-jupiter-api</artifactId>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
@@ -67,6 +68,26 @@
 						</path>
 					</annotationProcessorPaths>
 				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+				<version>${jacoco-maven-plugin.version}</version>
+				<executions>
+					<execution>
+						<id>prepare-agent</id>
+						<goals>
+							<goal>prepare-agent</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>report</id>
+						<phase>test</phase>
+						<goals>
+							<goal>report</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 			<plugin>
 				<artifactId>maven-surefire-plugin</artifactId>
