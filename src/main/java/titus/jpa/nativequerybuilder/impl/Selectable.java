@@ -27,10 +27,8 @@ public class Selectable implements ISelectable {
 	/**
 	 * Instantiates a new selectable.
 	 *
-	 * @param column
-	 *            the column
-	 * @param alias
-	 *            the alias
+	 * @param column the column
+	 * @param alias  the alias
 	 */
 	private Selectable(final IColumn column, final String alias) {
 		super();
@@ -48,12 +46,10 @@ public class Selectable implements ISelectable {
 	}
 
 	/**
-	 * To native sql.
+	 * Builds the native sql.
 	 *
-	 * @param anContext
-	 *            the an context
+	 * @param anContext the an context
 	 * @return the string
-	 * @see titus.jpa.nativequerybuilder.INativeSql#buildNativeSql(titus.jpa.nativequerybuilder.INativeSql.INativeSqlBuildContext)
 	 */
 	@Override
 	public String buildNativeSql(final INativeSqlBuildContext anContext) {
@@ -61,11 +57,13 @@ public class Selectable implements ISelectable {
 			StringBuilder builder = new StringBuilder();
 			builder.append(this.column.buildNativeSql(anContext));
 
-			if (Utils.isNotNullOrBlank(this.alias))
-				builder.append(Constants.ONE_BLANK)
-						.append(SqlContants.KEYWORD__COLUMN_ALIAS)
-						.append(Constants.ONE_BLANK)
-						.append(this.alias);
+			if (Utils.isNotNullOrBlank(this.alias)) {
+				builder
+					.append(Constants.ONE_BLANK)
+					.append(SqlContants.KEYWORD__COLUMN_ALIAS)
+					.append(Constants.ONE_BLANK)
+					.append(this.alias);
+			}
 
 			this.nativeSql = builder.toString();
 		}
@@ -76,7 +74,8 @@ public class Selectable implements ISelectable {
 	/**
 	 * The Class SelectableBuilder.
 	 */
-	public static class SelectableBuilder implements ISelectableBuilder, ISelectableStageAliasBuilder, IBuilder<ISelectable> {
+	public static class SelectableBuilder
+			implements ISelectableBuilder, ISelectableStageAliasBuilder, IBuilder<ISelectable> {
 
 		/** The column. */
 		private IColumn column;
@@ -107,10 +106,8 @@ public class Selectable implements ISelectable {
 		/**
 		 * As.
 		 *
-		 * @param anAlias
-		 *            the an alias
+		 * @param anAlias the an alias
 		 * @return the i builder
-		 * @see titus.jpa.nativequerybuilder.ISelectable.ISelectableStageAliasBuilder#as(java.lang.String)
 		 */
 		@Override
 		public IBuilder<ISelectable> as(final String anAlias) {
@@ -121,15 +118,15 @@ public class Selectable implements ISelectable {
 		/**
 		 * Column.
 		 *
-		 * @param anColumn
-		 *            the an column
+		 * @param anColumn the an column
 		 * @return the i selectable stage alias builder
 		 * @see titus.jpa.nativequerybuilder.ISelectable.ISelectableBuilder#column(titus.jpa.nativequerybuilder.IColumn)
 		 */
 		@Override
 		public ISelectableStageAliasBuilder column(final IColumn anColumn) {
-			if (anColumn == null)
+			if (anColumn == null) {
 				throw new NullPointerException("Column cannot be null!");
+			}
 			this.column = anColumn;
 			return this;
 		}

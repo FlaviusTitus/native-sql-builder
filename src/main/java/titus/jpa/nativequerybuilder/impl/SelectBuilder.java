@@ -9,24 +9,25 @@ import java.util.stream.Collectors;
 import titus.jpa.nativequerybuilder.IBuilder;
 import titus.jpa.nativequerybuilder.IColumn;
 import titus.jpa.nativequerybuilder.ICondition;
+import titus.jpa.nativequerybuilder.INativeSql.INativeSqlBuildContext;
 import titus.jpa.nativequerybuilder.IPage;
 import titus.jpa.nativequerybuilder.ISelect;
 import titus.jpa.nativequerybuilder.ISelectBuilder;
-import titus.jpa.nativequerybuilder.ISelectFrom;
-import titus.jpa.nativequerybuilder.ISelectable;
-import titus.jpa.nativequerybuilder.ISubSelect;
-import titus.jpa.nativequerybuilder.ITable;
-import titus.jpa.nativequerybuilder.INativeSql.INativeSqlBuildContext;
 import titus.jpa.nativequerybuilder.ISelectBuilder.ISelectFromBuilder;
 import titus.jpa.nativequerybuilder.ISelectBuilder.ISelectGroupByBuilder;
 import titus.jpa.nativequerybuilder.ISelectBuilder.ISelectOrderByBuilder;
 import titus.jpa.nativequerybuilder.ISelectBuilder.ISelectPageBuilder;
 import titus.jpa.nativequerybuilder.ISelectBuilder.ISelectWhereBuilder;
+import titus.jpa.nativequerybuilder.ISelectFrom;
+import titus.jpa.nativequerybuilder.ISelectable;
+import titus.jpa.nativequerybuilder.ISubSelect;
+import titus.jpa.nativequerybuilder.ITable;
 
 /**
  * The Class SelectBuilder.
  */
-public class SelectBuilder implements ISelectBuilder, ISelectFromBuilder, ISelectWhereBuilder, ISelectGroupByBuilder, ISelectOrderByBuilder, ISelectPageBuilder {
+public class SelectBuilder implements ISelectBuilder, ISelectFromBuilder, ISelectWhereBuilder, ISelectGroupByBuilder,
+		ISelectOrderByBuilder, ISelectPageBuilder {
 
 	/**
 	 * Builder.
@@ -72,8 +73,10 @@ public class SelectBuilder implements ISelectBuilder, ISelectFromBuilder, ISelec
 	 * Check.
 	 */
 	private void check() {
-		if (this.closed)
-			throw new RuntimeException("Query is builded. User \"reset\" function or create new ISelectBuilder instance!");
+		if (this.closed) {
+			throw new RuntimeException(
+					"Query is builded. User \"reset\" function or create new ISelectBuilder instance!");
+		}
 	}
 
 	/**
@@ -104,40 +107,41 @@ public class SelectBuilder implements ISelectBuilder, ISelectFromBuilder, ISelec
 	/**
 	 * Columns.
 	 *
-	 * @param aColumns
-	 *            the a columns
+	 * @param aColumns the a columns
 	 * @return the i select from builder
 	 * @see titus.jpa.nativequerybuilder.ISelectBuilder#columns(intranet.quarkus.utils.jpa.nativequerybuilder.ISelectColumn[])
 	 */
 	@Override
 	public ISelectFromBuilder columns(final ISelectable... aColumns) {
 		this.check();
-		if (!this.selectAllColumns && aColumns != null)
+		if (!this.selectAllColumns && aColumns != null) {
 			this.columns.addAll(Arrays.asList(aColumns));
+		}
 		return this;
 	}
 
 	/**
 	 * Columns.
 	 *
-	 * @param aColumns
-	 *            the a columns
+	 * @param aColumns the a columns
 	 * @return the i select from builder
 	 * @see titus.jpa.nativequerybuilder.ISelectBuilder#columns(java.lang.String[])
 	 */
 	@Override
 	public ISelectFromBuilder columns(final String... aColumns) {
 		this.check();
-		if (!this.selectAllColumns && aColumns != null)
-			this.columns.addAll(Arrays
+		if (!this.selectAllColumns && aColumns != null) {
+			this.columns
+				.addAll(Arrays
 					.stream(aColumns)
 					.map(column -> IColumn
-							.builder()
-							.name(column)
-							.build()
-							.toSelectable()
-							.build())
+						.builder()
+						.name(column)
+						.build()
+						.toSelectable()
+						.build())
 					.toList());
+		}
 		return this;
 	}
 
@@ -158,8 +162,7 @@ public class SelectBuilder implements ISelectBuilder, ISelectFromBuilder, ISelec
 	/**
 	 * All columns from table.
 	 *
-	 * @param aTable
-	 *            the a table
+	 * @param aTable the a table
 	 * @return the i select from builder
 	 * @see titus.jpa.nativequerybuilder.ISelectBuilder#allColumnsFromTable(titus.jpa.nativequerybuilder.ITable)
 	 */
@@ -175,8 +178,7 @@ public class SelectBuilder implements ISelectBuilder, ISelectFromBuilder, ISelec
 	/**
 	 * From.
 	 *
-	 * @param aTable
-	 *            the a table
+	 * @param aTable the a table
 	 * @return the i select where builder
 	 * @see titus.jpa.nativequerybuilder.ISelectBuilder.ISelectFromBuilder#from(intranet.quarkus.utils.jpa.nativequerybuilder.impl.Table)
 	 */
@@ -190,8 +192,7 @@ public class SelectBuilder implements ISelectBuilder, ISelectFromBuilder, ISelec
 	/**
 	 * From.
 	 *
-	 * @param aTable
-	 *            the a table
+	 * @param aTable the a table
 	 * @return the i select where builder
 	 * @see titus.jpa.nativequerybuilder.ISelectBuilder.ISelectFromBuilder#from(java.lang.String)
 	 */
@@ -205,8 +206,7 @@ public class SelectBuilder implements ISelectBuilder, ISelectFromBuilder, ISelec
 	/**
 	 * Where.
 	 *
-	 * @param anCondition
-	 *            the an condition
+	 * @param anCondition the an condition
 	 * @return the i select where builder
 	 * @see titus.jpa.nativequerybuilder.ISelectBuilder.ISelectWhereBuilder#where(titus.jpa.nativequerybuilder.ICondition)
 	 */
@@ -244,10 +244,8 @@ public class SelectBuilder implements ISelectBuilder, ISelectFromBuilder, ISelec
 	/**
 	 * Page.
 	 *
-	 * @param aPage
-	 *            the a page
-	 * @param aSize
-	 *            the a size
+	 * @param aPage the a page
+	 * @param aSize the a size
 	 * @return the i builder
 	 * @see titus.jpa.nativequerybuilder.ISelectBuilder.ISelectPageBuilder#page(int,
 	 *      int)
@@ -255,33 +253,34 @@ public class SelectBuilder implements ISelectBuilder, ISelectFromBuilder, ISelec
 	@Override
 	public IBuilder<ISelect> page(final int aPage, final int aSize) {
 		this.page = Page
-				.builder()
-				.page(aPage)
-				.size(aSize)
-				.build();
+			.builder()
+			.page(aPage)
+			.size(aSize)
+			.build();
 		return this;
 	}
 
 	/**
 	 * Builds the base query.
 	 *
-	 * @param anContext
-	 *            the an context
+	 * @param anContext the an context
 	 * @return the string
 	 */
 	private String buildBaseQuery(final INativeSqlBuildContext anContext) {
 		StringBuilder builder = new StringBuilder();
 
 		builder
-				.append(SqlContants.KEYWORD__FROM)
-				.append(Constants.ONE_BLANK)
-				.append(this.table.buildNativeSql(anContext));
+			.append(SqlContants.KEYWORD__FROM)
+			.append(Constants.ONE_BLANK)
+			.append(this.table.buildNativeSql(anContext));
 
-		if (this.where != null)
-			builder.append(Constants.ONE_BLANK)
-					.append(SqlContants.KEYWORD__WHERE)
-					.append(Constants.ONE_BLANK)
-					.append(this.where.buildNativeSql(anContext));
+		if (this.where != null) {
+			builder
+				.append(Constants.ONE_BLANK)
+				.append(SqlContants.KEYWORD__WHERE)
+				.append(Constants.ONE_BLANK)
+				.append(this.where.buildNativeSql(anContext));
+		}
 
 		return builder.toString();
 	}
@@ -289,42 +288,50 @@ public class SelectBuilder implements ISelectBuilder, ISelectFromBuilder, ISelec
 	/**
 	 * Builds the data query.
 	 *
-	 * @param aBaseQuery
-	 *            the a base query
-	 * @param anContext
-	 *            the an context
+	 * @param aBaseQuery the a base query
+	 * @param anContext  the an context
 	 * @return the string
 	 */
 	private String buildDataQuery(final String aBaseQuery, final INativeSqlBuildContext anContext) {
 		StringBuilder builder = new StringBuilder();
 
-		builder.append(SqlContants.KEYWORD__SELECT)
-				.append(Constants.ONE_BLANK);
+		builder
+			.append(SqlContants.KEYWORD__SELECT)
+			.append(Constants.ONE_BLANK);
 
-		if (this.distinct)
-			builder.append(SqlContants.KEYWORD__DISTINCT)
-					.append(Constants.ONE_BLANK);
+		if (this.distinct) {
+			builder
+				.append(SqlContants.KEYWORD__DISTINCT)
+				.append(Constants.ONE_BLANK);
+		}
 
 		if (this.selectAllColumns) {
-			if (this.selectAllColumnsFromTable != null)
-				builder.append(this.selectAllColumnsFromTable.getAlias())
-						.append(SqlContants.NAMESPACE_DELIMITER);
+			if (this.selectAllColumnsFromTable != null) {
+				builder
+					.append(this.selectAllColumnsFromTable.getAlias())
+					.append(SqlContants.NAMESPACE_DELIMITER);
+			}
 			builder.append(SqlContants.SELECT_ALL_COLUMNS);
-		} else
-			builder.append(
-					this.columns
+		} else {
+			builder
+				.append(
+						this.columns
 							.stream()
 							.map(column -> column.buildNativeSql(anContext))
 							.collect(Collectors.joining(SqlContants.VALUE_DELIMITER)));
+		}
 
-		builder.append(Constants.ONE_BLANK)
-				.append(aBaseQuery);
+		builder
+			.append(Constants.ONE_BLANK)
+			.append(aBaseQuery);
 
 		// TODO Group By
 		// TODO Order By
-		if (this.page != null)
-			builder.append(Constants.ONE_BLANK)
-					.append(this.page.buildNativeSql(anContext));
+		if (this.page != null) {
+			builder
+				.append(Constants.ONE_BLANK)
+				.append(this.page.buildNativeSql(anContext));
+		}
 
 		return builder.toString().toUpperCase();
 	}
@@ -332,23 +339,24 @@ public class SelectBuilder implements ISelectBuilder, ISelectFromBuilder, ISelec
 	/**
 	 * Builds the count query.
 	 *
-	 * @param aBaseQuery
-	 *            the a base query
-	 * @param anContext
-	 *            the an context
+	 * @param aBaseQuery the a base query
+	 * @param anContext  the an context
 	 * @return the string
 	 */
 	private String buildCountQuery(final String aBaseQuery, final INativeSqlBuildContext anContext) {
 		StringBuilder builder = new StringBuilder();
 
-		builder.append(SqlContants.KEYWORD__SELECT)
-				.append(Constants.ONE_BLANK);
-		if (this.distinct)
+		builder
+			.append(SqlContants.KEYWORD__SELECT)
+			.append(Constants.ONE_BLANK);
+		if (this.distinct) {
 			builder.append(SqlContants.COUNT_ROWS_DISTINCT);
-		else
+		} else {
 			builder.append(SqlContants.COUNT_ROWS);
-		builder.append(Constants.ONE_BLANK)
-				.append(aBaseQuery);
+		}
+		builder
+			.append(Constants.ONE_BLANK)
+			.append(aBaseQuery);
 
 		return builder.toString().toUpperCase();
 	}
@@ -357,36 +365,36 @@ public class SelectBuilder implements ISelectBuilder, ISelectFromBuilder, ISelec
 	 * Valid.
 	 */
 	private void valid() {
-		if (!this.selectAllColumns && this.columns.isEmpty())
+		if (!this.selectAllColumns && this.columns.isEmpty()) {
 			throw new RuntimeException("Select all columns or define the columns to be select!");
+		}
 
-		if (this.table == null)
+		if (this.table == null) {
 			throw new RuntimeException("A table is required!");
+		}
 
 	}
 
 	/**
 	 * Builds the select.
 	 *
-	 * @param anContext
-	 *            the an context
+	 * @param anContext the an context
 	 * @return the i select
 	 */
 	private ISelect buildSelect(final INativeSqlBuildContext anContext) {
 		final String querybase = this.buildBaseQuery(anContext);
 
 		return Select
-				.builder()
-				.countQuery(this.buildCountQuery(querybase, anContext))
-				.dataQuery(this.buildDataQuery(querybase, anContext))
-				.build();
+			.builder()
+			.countQuery(this.buildCountQuery(querybase, anContext))
+			.dataQuery(this.buildDataQuery(querybase, anContext))
+			.build();
 	}
 
 	/**
 	 * Builds the.
 	 *
-	 * @return the select statement
-	 * @see titus.jpa.nativequerybuilder.ISelectBuilder.ISelectBuildBuilder#build()
+	 * @return the i select
 	 */
 	@Override
 	public ISelect build() {
@@ -400,7 +408,6 @@ public class SelectBuilder implements ISelectBuilder, ISelectFromBuilder, ISelec
 	 * Builds the as sub select.
 	 *
 	 * @return the i sub select
-	 * @see titus.jpa.nativequerybuilder.ISelectBuilder.ISelectBuilderFinalStage#buildAsSubSelect()
 	 */
 	@Override
 	public ISubSelect buildAsSubSelect() {
@@ -423,8 +430,7 @@ public class SelectBuilder implements ISelectBuilder, ISelectFromBuilder, ISelec
 		/**
 		 * Instantiates a new sub select.
 		 *
-		 * @param aBuilder
-		 *            the a builder
+		 * @param aBuilder the a builder
 		 */
 		public SubSelect(final Function<INativeSqlBuildContext, ISelect> aBuilder) {
 			this.builder = aBuilder;
@@ -433,15 +439,14 @@ public class SelectBuilder implements ISelectBuilder, ISelectFromBuilder, ISelec
 		/**
 		 * Builds the native sql.
 		 *
-		 * @param anContext
-		 *            the an context
+		 * @param anContext the an context
 		 * @return the string
-		 * @see titus.jpa.nativequerybuilder.INativeSql#buildNativeSql(titus.jpa.nativequerybuilder.INativeSql.INativeSqlBuildContext)
 		 */
 		@Override
 		public String buildNativeSql(final INativeSqlBuildContext anContext) {
-			if (this.select == null)
+			if (this.select == null) {
 				this.select = this.builder.apply(anContext);
+			}
 
 			return this.select.getDataQuery();
 		}

@@ -9,8 +9,11 @@ import titus.jpa.nativequerybuilder.ISqlFunction.IBasicSqlFunctionInstanceBuilde
 
 /**
  * The Class CountBuilder.
+ *
+ * @param <R> the generic type
  */
-public class BasicSqlFunctionInstanceBuilder<R extends ISqlFunction> implements IBasicSqlFunctionInstanceBuilder<R>, IBuilder<R> {
+public class BasicSqlFunctionInstanceBuilder<R extends ISqlFunction>
+		implements IBasicSqlFunctionInstanceBuilder<R>, IBuilder<R> {
 
 	/** The function instance builder. */
 	private final Function<IColumn, R> functionInstanceBuilder;
@@ -19,7 +22,9 @@ public class BasicSqlFunctionInstanceBuilder<R extends ISqlFunction> implements 
 	private IColumn column;
 
 	/**
-	 * @param aFunctionInstanceBuilder
+	 * Instantiates a new basic sql function instance builder.
+	 *
+	 * @param aFunctionInstanceBuilder the a function instance builder
 	 */
 	public BasicSqlFunctionInstanceBuilder(final Function<IColumn, R> aFunctionInstanceBuilder) {
 		this.functionInstanceBuilder = aFunctionInstanceBuilder;
@@ -28,10 +33,8 @@ public class BasicSqlFunctionInstanceBuilder<R extends ISqlFunction> implements 
 	/**
 	 * Column.
 	 *
-	 * @param anColumn
-	 *            the an column
+	 * @param anColumn the an column
 	 * @return the i builder
-	 * @see titus.utils.jpa.nativequerybuilder.functions.ICount.ICountBuilder#column(titus.jpa.nativequerybuilder.IColumn)
 	 */
 	@Override
 	public IBuilder<R> column(final IColumn anColumn) {
@@ -42,10 +45,8 @@ public class BasicSqlFunctionInstanceBuilder<R extends ISqlFunction> implements 
 	/**
 	 * Column.
 	 *
-	 * @param anColumn
-	 *            the an column
+	 * @param anColumn the an column
 	 * @return the i builder
-	 * @see titus.utils.jpa.nativequerybuilder.functions.ICount.ICountBuilder#column(java.lang.String)
 	 */
 	@Override
 	public IBuilder<R> column(final String anColumn) {
@@ -57,7 +58,6 @@ public class BasicSqlFunctionInstanceBuilder<R extends ISqlFunction> implements 
 	 * Builds the.
 	 *
 	 * @return the r
-	 * @see titus.jpa.nativequerybuilder.IBuilder#build()
 	 */
 	@Override
 	public R build() {

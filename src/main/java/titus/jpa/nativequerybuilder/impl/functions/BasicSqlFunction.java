@@ -3,6 +3,9 @@ package titus.jpa.nativequerybuilder.impl.functions;
 import titus.jpa.nativequerybuilder.IColumn;
 import titus.jpa.nativequerybuilder.ISqlFunction;
 
+/**
+ * The Class BasicSqlFunction.
+ */
 public class BasicSqlFunction implements ISqlFunction {
 
 	/** The column. */
@@ -14,8 +17,8 @@ public class BasicSqlFunction implements ISqlFunction {
 	/**
 	 * Instantiates a new count.
 	 *
-	 * @param anColumn
-	 *            the an column
+	 * @param aFunctionName the a function name
+	 * @param anColumn      the an column
 	 */
 	public BasicSqlFunction(final String aFunctionName, final IColumn anColumn) {
 		this.functionName = aFunctionName;
@@ -25,10 +28,8 @@ public class BasicSqlFunction implements ISqlFunction {
 	/**
 	 * Builds the native sql.
 	 *
-	 * @param anContext
-	 *            the an context
+	 * @param anContext the an context
 	 * @return the string
-	 * @see titus.jpa.nativequerybuilder.INativeSql#buildNativeSql(titus.jpa.nativequerybuilder.INativeSql.INativeSqlBuildContext)
 	 */
 	@Override
 	public String buildNativeSql(final INativeSqlBuildContext anContext) {

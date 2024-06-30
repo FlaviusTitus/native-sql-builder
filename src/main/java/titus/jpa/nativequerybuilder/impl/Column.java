@@ -6,8 +6,8 @@ import lombok.ToString;
 import titus.jpa.nativequerybuilder.IBuilder;
 import titus.jpa.nativequerybuilder.IColumn;
 import titus.jpa.nativequerybuilder.ISelectable;
-import titus.jpa.nativequerybuilder.ITable;
 import titus.jpa.nativequerybuilder.ISelectable.ISelectableStageAliasBuilder;
+import titus.jpa.nativequerybuilder.ITable;
 
 /**
  * The Class Column.
@@ -29,10 +29,8 @@ public class Column implements IColumn {
 	/**
 	 * Instantiates a new column.
 	 *
-	 * @param aTable
-	 *            the a table
-	 * @param aName
-	 *            the a name
+	 * @param aTable the a table
+	 * @param aName  the a name
 	 */
 	private Column(final ITable aTable, final String aName) {
 		this.table = aTable;
@@ -53,8 +51,7 @@ public class Column implements IColumn {
 	/**
 	 * To native sql.
 	 *
-	 * @param anContext
-	 *            the an context
+	 * @param anContext the an context
 	 * @return the string
 	 * @see titus.jpa.nativequerybuilder.INativeSql#buildNativeSql(titus.jpa.nativequerybuilder.INativeSql.INativeSqlBuildContext)
 	 */
@@ -62,8 +59,9 @@ public class Column implements IColumn {
 	public String buildNativeSql(final INativeSqlBuildContext anContext) {
 		if (this.nativeSql == null) {
 			StringBuilder builder = new StringBuilder();
-			if (this.table != null && Utils.isNotNullOrBlank(this.table.getAlias()))
+			if (this.table != null && Utils.isNotNullOrBlank(this.table.getAlias())) {
 				builder.append(this.table.getAlias()).append(SqlContants.NAMESPACE_DELIMITER);
+			}
 			builder.append(this.name);
 			this.nativeSql = builder.toString();
 		}
@@ -73,7 +71,8 @@ public class Column implements IColumn {
 	/**
 	 * The Class ColumnBuilder.
 	 */
-	public static class ColumnBuilder implements IColumnBuilder, IColumnBuilderFromTableStage, IColumnBuilderSelectOrBuildStage {
+	public static class ColumnBuilder
+			implements IColumnBuilder, IColumnBuilderFromTableStage, IColumnBuilderSelectOrBuildStage {
 
 		/** The table. */
 		private ITable table;
@@ -84,10 +83,8 @@ public class Column implements IColumn {
 		/**
 		 * Table.
 		 *
-		 * @param aTable
-		 *            the a table
-		 * @return the i column builder name stage
-		 * @see titus.jpa.nativequerybuilder.IColumn.IColumnBuilder#table(titus.jpa.nativequerybuilder.ITable)
+		 * @param aTable the a table
+		 * @return the i column builder select or build stage
 		 */
 		@Override
 		public IColumnBuilderSelectOrBuildStage table(final ITable aTable) {
@@ -98,10 +95,8 @@ public class Column implements IColumn {
 		/**
 		 * Name.
 		 *
-		 * @param aName
-		 *            the a name
+		 * @param aName the a name
 		 * @return the i column builder from table stage
-		 * @see titus.jpa.nativequerybuilder.IColumn.IColumnBuilder#name(java.lang.String)
 		 */
 		@Override
 		public IColumnBuilderFromTableStage name(final String aName) {
@@ -146,8 +141,7 @@ public class Column implements IColumn {
 		/**
 		 * Instantiates a new column select builder.
 		 *
-		 * @param anColumn
-		 *            the an column
+		 * @param anColumn the an column
 		 */
 		public ColumnSelectBuilder(final IColumn anColumn) {
 			super();
@@ -157,8 +151,7 @@ public class Column implements IColumn {
 		/**
 		 * As.
 		 *
-		 * @param anAlias
-		 *            the an alias
+		 * @param anAlias the an alias
 		 * @return the i builder
 		 * @see titus.jpa.nativequerybuilder.IColumn.IColumnBuilderSelectStage#as(java.lang.String)
 		 */
