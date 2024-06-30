@@ -1,7 +1,7 @@
 #eclipse
 .project
 .settings
-.calsspath
+.classpath
 
 #maven
 target

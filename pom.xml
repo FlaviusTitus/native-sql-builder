@@ -7,7 +7,7 @@
 	<version>0.5.0</version>
 	<name>${project.groupId}:${project.artifactId}</name>
 	<description>Builder api to create native sql queries</description>
-	<url>https://github.com/FlaviusTitus/titus.jpa.nativesqlbuilder</url>
+	<url>https://github.com/FlaviusTitus/sql-query-builder</url>
 
 	<properties>
 		<compiler-plugin.version>3.12.1</compiler-plugin.version>
@@ -31,18 +31,18 @@
 
 	<scm>
 		<connection>
-			scm:git:git://github.com/FlaviusTitus/titus.jpa.nativesqlbuilder.git</connection>
+			scm:git:git://github.com/FlaviusTitus/sql-query-builder.git</connection>
 		<developerConnection>
-			scm:git:ssh://github.com/FlaviusTitus/titus.jpa.nativesqlbuilder.git</developerConnection>
+			scm:git:ssh://github.com/FlaviusTitus/sql-query-builder.git</developerConnection>
 		<url>
-			https://github.com/FlaviusTitus/titus.jpa.nativesqlbuilder/tree/master</url>
+			https://github.com/FlaviusTitus/sql-query-builder/tree/main</url>
 	</scm>
 
 	<licenses>
 		<license>
 			<name>MIT License</name>
 			<url>
-				https://github.com/FlaviusTitus/titus.jpa.nativesqlbuilder/blob/main/LICENSE</url>
+				https://github.com/FlaviusTitus/sql-query-builder/blob/main/LICENSE</url>
 		</license>
 	</licenses>
 
