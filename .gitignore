@@ -1,8 +1,11 @@
 #eclipse
 .project
+.settings
+.calsspath
 
 #maven
 target
+bin
 
 # Compiled class file
 *.class
